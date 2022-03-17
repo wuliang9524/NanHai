@@ -1,0 +1,24 @@
+{
+    "name": "logan/nanhai",
+    "description": "南海地区接口 SDK 包",
+    "type": "lib",
+    "autoload": {
+        "psr-4": {
+            "Logan\\Nanhai\\": "src/",
+            "Logan\\Nanhai\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "long",
+            "email": "wuliang9524@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "guzzlehttp/guzzle": "^7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}
