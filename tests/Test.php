@@ -11,6 +11,7 @@ class Test extends TestCase
     protected $appId     = 'gdzh63488888tBCD';
     protected $appSecret = 'Qos1GfhGYGqugI5Q7OWOkPZgA162DftI';
     protected $appToken  = "c0pzyEmNY056tRKT";
+    protected $dustToken = "Cb2VhZ3fnkUiRgiO";
 
     public function testGetAppToken()
     {
@@ -79,6 +80,47 @@ class Test extends TestCase
                 'Test_001',
                 'in',
                 'd0c9-b04c-b6d4cdcd-df5a-72477173afc3'
+            )
+            ->getResponse();
+
+        var_dump($res);
+    }
+
+    public function testGetDustAppToken()
+    {
+        $instance = new Client($this->domain, $this->appId, $this->appSecret);
+        $res = $instance->getDustAppToken()->getResponse();
+        var_dump($res);
+    }
+
+    public function testAddDustRecord()
+    {
+        $instance = new Client($this->domain, $this->appId, $this->appSecret);
+        $res = $instance
+            ->addDustRecord(
+                $this->dustToken,
+                '2b94-c63a-af67c7ae-9f72-4a01d11f1e21',
+                '40201863',
+                [
+                    'time'           => 1658073606,
+                    'humidity'       => '80.10',
+                    'temperature'    => '28.30',
+                    'pressure'       => '100.10',
+                    'wind_direction' => '-1',
+                    'wind_speed'     => '-1',
+                    'noise'          => '47.60',
+                    'pmtpf'          => '-1',
+                    'pmt'            => '10.00',
+                    'tsp'            => '12.00',
+                    'so2'            => '-1',
+                    'no2'            => '-1',
+                    'co'             => '-1',
+                    'o3'             => '-1',
+                    'nh3'            => '-1',
+                    'vo2'            => '-1',
+                    'h2s'            => '-1',
+                    'hcl'            => '-1',
+                ]
             )
             ->getResponse();
 

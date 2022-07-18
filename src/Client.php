@@ -97,6 +97,14 @@ class Client
         return $this->params;
     }
 
+    /**
+     * 获取实名制 Token
+     *
+     * @return void
+     * @author LONG <1121116451@qq.com>
+     * @version version
+     * @date 2022-07-18
+     */
     public function getAppToken()
     {
         $url = $this->domain . '/Api/MachineThird/getTokenByAppRequest';
@@ -206,6 +214,23 @@ class Client
         return $this;
     }
 
+    /**
+     * 上传考勤数据
+     *
+     * @param string $token
+     * @param string $proCode
+     * @param string $code
+     * @param string $devCode
+     * @param string $direction
+     * @param string $timeStamp
+     * @param string $image
+     * @param int|null $delay
+     * @param string|null $position
+     * @return void
+     * @author LONG <1121116451@qq.com>
+     * @version version
+     * @date 2022-07-18
+     */
     public function addAttendance(
         string $token,
         string $proCode,
@@ -269,6 +294,67 @@ class Client
             'machine'         => $devCode,
             'state'           => $state,
             'companyonlycode' => $comCode,
+        ];
+
+        $this->response = $this->httpClient->request('POST', $url, [
+            'json' => $req
+        ])
+            ->getBody()
+            ->getContents();
+        return $this;
+    }
+
+    /**
+     * 获取扬尘 Token
+     *
+     * @return void
+     * @author LONG <1121116451@qq.com>
+     * @version version
+     * @date 2022-07-18
+     */
+    public function getDustAppToken()
+    {
+        $url = $this->domain . '/Api/YangchenThird/getTokenByAppRequest';
+
+        $req = [
+            'appId'     => $this->appId,
+            'appSecret' => $this->appSecret
+        ];
+
+        $this->response = $this->httpClient->request('POST', $url, [
+            'json' => $req
+        ])
+            ->getBody()
+            ->getContents();
+        return $this;
+    }
+
+    /**
+     * 上传扬尘记录
+     *
+     * @param string $token     token
+     * @param string $proCode   项目唯一码
+     * @param string $devCode   扬尘设备编码
+     * @param array $data       扬尘数据
+     * @return void
+     * @author LONG <1121116451@qq.com>
+     * @version version
+     * @date 2022-07-18
+     */
+    public function addDustRecord(
+        string $token,
+        string $proCode,
+        string $devCode,
+        array $data
+    ) {
+        $url = $this->domain . '/Api/YangchenThird/receiveYCData';
+
+        $req = [
+            'appId'        => $this->appId,
+            'appToken'     => $token,
+            'onlycode'     => $proCode,
+            'machine_sn'   => $devCode,
+            'yangchenData' => $data
         ];
 
         $this->response = $this->httpClient->request('POST', $url, [
